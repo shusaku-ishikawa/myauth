@@ -1,0 +1,10 @@
+{% extends 'myauth/base.html' %}
+{% block content %}
+<div class="bg-white mx-auto mt-5 p-4 shadow" style="max-width: 600px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="p-2 bg-green-400 border-2 text-white">ログイン</button>
+    </form>
+</div>
+{% endblock %}

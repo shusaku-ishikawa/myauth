@@ -1,0 +1,66 @@
+{% extends 'myauth/base.html' %}
+{% block content %}
+<div class="mx-auto mt-5 p-4 w-full overflow-x-auto">
+    <table class="bg-white w-full table-auto border-collapse">
+        <thead>
+            <tr class="border bg-gray-600 text-white">
+                <th>ID</th>
+                <th>登録日</th>
+                <th>姓</th>
+                <th>名</th>
+                <th>郵便番号</th>
+                <th>住所</th>
+                <th>電話番号</th>
+                <th>列1</th>
+                <th>列2</th>
+                <th>列3</th>
+                <th>列4</th>
+                <th>管理者</th>
+                <th>操作</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in object_list %}
+            <tr class="border">
+                <td class="text-center px-2">{{ u.user_id }}</td>
+                <td class="text-center px-2">{{ u.date_joined|date:'Y-m-d' }}</td>
+                <td class="text-center px-2">{{ u.family_name }}</td>
+                <td class="text-center px-2">{{ u.first_name }}</td>
+                <td class="text-center px-2">{{ u.zip }}</td>
+                <td class="text-center px-2">{{ u.address }}</td>
+                <td class="text-center px-2">{{ u.phone }}</td>
+                <td class="text-center px-2">{{ u.unnamed1 | default_if_none:'' }}</td>
+                <td class="text-center px-2">{{ u.unnamed2 | default_if_none:'' }}</td>
+                <td class="text-center px-2">{{ u.unnamed3 | default_if_none:'' }}</td>
+                <td class="text-center px-2">{{ u.unnamed4 | default_if_none:'' }}</td>
+                
+                <td class="text-center px-2">
+                    <input type="checkbox" disabled {% if u.is_superuser %} checked {% endif %}>
+                </td>
+                <td class="text-center">
+                    {% if user.is_superuser %}
+                    <a class="border inline-block p-1 bg-gray-600 text-white" href="{% url 'myauth:profile' u.pk %}">
+                        更新
+                    </a>
+                    {% endif %}
+                    {% if u.pk != user.pk %}
+                    <a class="border inline-block p-1 bg-red-600 text-white" href="{% url 'myauth:delete_user' u.pk %}">
+                        削除
+                    </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block style %}
+<style>
+    th, td {
+        white-space: nowrap;
+    }
+</style>
+{% endblock %}

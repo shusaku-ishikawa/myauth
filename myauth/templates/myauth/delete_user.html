@@ -1,0 +1,17 @@
+{% extends 'myauth/base.html' %}
+{% block content %}
+<div class="bg-white mx-auto mt-5 p-4">
+    <div>ユーザ {{ object.user_id }} を削除しますか？</div>
+    <form method="post">
+        {% csrf_token %}      
+        <div class="flex items-center">
+            <button type="submit" class="border bg-red-600 font-bold text-white p-2">
+                削除
+            </button>
+            <a href="{% url 'myauth:list_user' %}" class="ml-3 py-2 border px-2">
+                キャンセル
+            </a>
+        </div>
+    </form> 
+</div>
+{% endblock %}
